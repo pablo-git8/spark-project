@@ -1,7 +1,20 @@
-version: '3'
+version: '3.8'
+
 services:
-  spark:
-    image: bitnami/spark:latest
+  spark-jupyter:
+    build: .
+    container_name: spark-container
     ports:
-      - "8080:8080"
-      - "4040:4040"
+      - "4040:4040"  # Spark application web UI
+      - "8080:8080"  # Spark master web UI
+      - "8081:8081"  # Spark worker web UI (not needed if you are not starting workers)
+      - "8888:8888"  # JupyterLab
+    volumes:
+      - ./data:/data                                    # Maps a host directory to a container directory for persistent storage
+      - ./notebooks:/opt/bitnami/spark/work/notebooks   # Maps a local notebooks directory to the container
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
