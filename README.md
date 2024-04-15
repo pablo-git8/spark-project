@@ -4,7 +4,7 @@ This guide provides instructions on how to set up an Apache Spark environment wi
 
 ## Prerequisites
 
-- Docker (Docker Desktop for Windows)
+- Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop/) for Windows)
 - Git (if cloning the repository)
 
 ## Setup Instructions
@@ -73,4 +73,4 @@ docker-compose down -v --rmi all
 docker rmi spark-project-spark-jupyter
 ```
 
-**Warning**: The two las commands will remove all unused volumes and images not associated with running containers. They are optional and should be used with caution.
+**Warning**: The two last commands will remove all unused volumes and images not associated with running containers. They are optional and should be used with caution.
