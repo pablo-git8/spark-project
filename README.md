@@ -1,11 +1,15 @@
-# Apache Spark & JupyterLab Environment Setup
+# Apache Spark, JupyterLab & Postgres DB Environment Setup
 
-This guide provides instructions on how to set up an Apache Spark environment with JupyterLab using Docker and Docker Compose.
+This guide provides instructions on how to set up an Apache Spark environment with JupyterLab using Docker and Docker Compose, including integration with a PostgreSQL database.
 
 ## Prerequisites
 
 - Docker ([Docker Desktop](https://www.docker.com/products/docker-desktop/) for Windows)
 - Git (if cloning the repository)
+
+## Services Automated
+
+The Dockerfile is configured to automatically execute the Spark master and a single worker node when the container starts, along with a PostgreSQL database.
 
 ## Setup Instructions
 
@@ -47,6 +51,9 @@ After the setup, validate the services are running correctly:
 3. **Access Spark Master Web UI**:
    Open your web browser and go to [http://localhost:8080](http://localhost:8080). You should see the Apache Spark master's web UI.
 
+4. **Access PostgreSQL Database:**
+   Connect to the PostgreSQL database using the credentials specified in the .env file, accessible via SQL clients or notebooks in JupyterLab.
+
 If you are unable to access these interfaces, consult the container logs for troubleshooting:
 
 ```bash
@@ -57,6 +64,29 @@ docker logs spark-container
 
 - Your local `./data` directory is mounted to `/data` inside the container for persistent data storage.
 - Your local `./notebooks` directory is mounted to `/opt/bitnami/spark/work/notebooks` inside the container, where you can place and manage Jupyter notebooks.
+- A PostgreSQL database is available as a service, accessible using the credentials defined in the .env file.
+
+### Connecting to PostgreSQL from JupyterLab
+Example Python code snippet in JupyterLab to connect to PostgreSQL:
+
+```python
+   import psycopg2
+
+   # Establish a connection
+   conn = psycopg2.connect(
+      dbname="your_db_name",
+      user="your_user",
+      password="your_password",
+      host="postgres-container"
+   )
+
+   cursor = conn.cursor()
+
+   # Remember to close the connection when done
+   cursor.close()
+   conn.close()
+```
+Ensure to create a .env in your repository path and include the required PostgreSQL credentials. You can see an example in the .env-ex mock file. **Note:** You may need to copy and paste your .env file inside your jupyter notebook path (depends on how you want to call your credentials).
 
 ## Stopping and Cleaning Up
 
