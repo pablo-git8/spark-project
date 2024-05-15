@@ -26,7 +26,8 @@ ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-*.zip
 # Spark master’s web UI on 8080.
 # Spark worker web UI on 8081.
 # Jupyter web UI on 8888.
-EXPOSE 4040 8080 8081 8888
+# Postgres DB access
+EXPOSE 4040 8080 8081 8888 5432
 
 # Start a Master-Worker Node and JupyterLab by default
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

@@ -52,7 +52,7 @@ After the setup, validate the services are running correctly:
    Open your web browser and go to [http://localhost:8080](http://localhost:8080). You should see the Apache Spark master's web UI.
 
 4. **Access PostgreSQL Database:**
-   Connect to the PostgreSQL database using the credentials specified in the .env file, accessible via SQL clients or notebooks in JupyterLab.
+   Connect to the PostgreSQL database using the credentials specified in the .env file, accessible via SQL clients or notebooks in JupyterLab. The database will be accessible with your credentials in `127.0.0.1/0.0.0.0:5432`, if not, try `host.docker.internal:5432`.
 
 If you are unable to access these interfaces, consult the container logs for troubleshooting:
 
